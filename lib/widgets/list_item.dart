@@ -3,29 +3,18 @@ import 'package:provider/provider.dart';
 import 'package:state_without_state_management/model/model.dart';
 import 'package:state_without_state_management/screens/detail_page.dart';
 
-class ListItem extends StatefulWidget {
-  
 
-  const ListItem({
-    Key? key,
-   
-  }) : super(key: key);
+class ListItem extends StatelessWidget {
+  const ListItem({Key? key}) : super(key: key);
 
-  @override
-  State<ListItem> createState() => _ListItemState();
-}
-
-class _ListItemState extends State<ListItem> {
-  
   @override
   Widget build(BuildContext context) {
-
-
-    final animeData = Provider.of<Anime>(context);
+    final animeData = Provider.of<Anime>(context, listen: false);
 
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(DetailPage.routeName, arguments: animeData.animeId);
+        Navigator.of(context)
+            .pushNamed(DetailPage.routeName, arguments: animeData.animeId);
       },
       child: Card(
         color: Colors.amber,
@@ -53,7 +42,7 @@ class _ListItemState extends State<ListItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                   animeData.animeTitle,
+                    animeData.animeTitle,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
                   ),
                   SizedBox(
@@ -63,8 +52,20 @@ class _ListItemState extends State<ListItem> {
                     children: [
                       Text(animeData.releasedDate),
                       Spacer(),
-                      IconButton(
-                          onPressed: () {}, icon: Icon(Icons.favorite_border,),)
+                      Consumer<Anime>(
+                        builder: (context, animeData, child) => IconButton(
+                          onPressed: () {
+                            animeData.statusFav();
+                          },
+                          icon: (animeData.isVavorite)
+                              ? Icon(
+                                  Icons.favorite,
+                                )
+                              : Icon(
+                                  Icons.favorite_border_outlined,
+                                ),
+                        ),
+                      )
                     ],
                   )
                 ],
