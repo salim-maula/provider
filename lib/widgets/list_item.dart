@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:state_without_state_management/model/model.dart';
 import 'package:state_without_state_management/screens/detail_page.dart';
 
 class ListItem extends StatefulWidget {
-  final String animeId;
-  final String animeTitle;
-  final String animeImg;
-  final String releasedDate;
+  
 
   const ListItem({
     Key? key,
-    required this.animeId,
-    required this.animeTitle,
-    required this.animeImg,
-    required this.releasedDate,
-
+   
   }) : super(key: key);
 
   @override
@@ -21,11 +16,16 @@ class ListItem extends StatefulWidget {
 }
 
 class _ListItemState extends State<ListItem> {
+  
   @override
   Widget build(BuildContext context) {
+
+
+    final animeData = Provider.of<Anime>(context);
+
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(DetailPage.routeName, arguments: widget.animeId);
+        Navigator.of(context).pushNamed(DetailPage.routeName, arguments: animeData.animeId);
       },
       child: Card(
         color: Colors.amber,
@@ -39,7 +39,7 @@ class _ListItemState extends State<ListItem> {
                 height: 200,
                 width: double.infinity,
                 child: Image.network(
-                  widget.animeImg,
+                  animeData.animeImg,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -53,7 +53,7 @@ class _ListItemState extends State<ListItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.animeTitle,
+                   animeData.animeTitle,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
                   ),
                   SizedBox(
@@ -61,7 +61,7 @@ class _ListItemState extends State<ListItem> {
                   ),
                   Row(
                     children: [
-                      Text(widget.releasedDate),
+                      Text(animeData.releasedDate),
                       Spacer(),
                       IconButton(
                           onPressed: () {}, icon: Icon(Icons.favorite_border,),)

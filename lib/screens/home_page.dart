@@ -23,11 +23,11 @@ class HomePage extends StatelessWidget {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, mainAxisExtent: 350),
         itemBuilder: (context, index) {
-          return ListItem(
-            animeId: animeData[index].animeId,
-            animeImg: animeData[index].animeImg,
-            animeTitle: animeData[index].animeTitle,
-            releasedDate: animeData[index].releasedDate,
+          return ChangeNotifierProvider.value(
+            value: animeData[index],
+            child: ListItem(
+             
+            ),
           );
         },
       ),

@@ -1,6 +1,8 @@
 //https://gogoanime.herokuapp.com/popular
 
-class Anime {
+import 'package:flutter/cupertino.dart';
+
+class Anime with ChangeNotifier {
   final String animeId;
   final String animeTitle;
   final String animeImg;
@@ -13,6 +15,11 @@ class Anime {
       required this.animeImg,
       required this.releasedDate,
       this.isVavorite = false});
+
+      void statusFav(){
+        isVavorite = !isVavorite;
+        notifyListeners();
+      }
 }
 
 

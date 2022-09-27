@@ -4,7 +4,7 @@ import '../model/model.dart';
 
 class Animes with ChangeNotifier{
 
-  final listAnime = [
+  List<Anime> listAnime = [
   Anime(
     animeId: "boruto-naruto-next-generations",
     animeTitle: "Boruto: Naruto Next Generations",
